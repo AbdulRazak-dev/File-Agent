@@ -75,4 +75,4 @@ def create_app():
             "message": "Document uploaded successfully",
             "filename": file.filename
         })
-    return app
+        return app
