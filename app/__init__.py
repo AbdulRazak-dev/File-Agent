@@ -6,13 +6,12 @@ from app.document_processor import extract_pdf_text
 def create_app():
     app = Flask(__name__)
 
-    upload_folder = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)),
-        "uploads"
-    )
+    upload_folder = "/tmp/file_agent_uploads"
+
+    os.makedirs(upload_folder, exist_ok=True)
 
     app.config["UPLOAD_FOLDER"] = upload_folder
-
+    
     @app.route("/")
     def home():
         return render_template("index.html")
@@ -48,8 +47,7 @@ def create_app():
             app.config["UPLOAD_FOLDER"],
             file.filename
         )
-
-        os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+        
         file.save(file_path)
 
         if extension == "pdf":
