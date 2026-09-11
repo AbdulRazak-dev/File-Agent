@@ -11,8 +11,6 @@ def create_app():
         "uploads"
     )
 
-    os.makedirs(upload_folder, exist_ok=True)
-
     app.config["UPLOAD_FOLDER"] = upload_folder
 
     @app.route("/")
@@ -51,6 +49,7 @@ def create_app():
             file.filename
         )
 
+        os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
         file.save(file_path)
 
         if extension == "pdf":
