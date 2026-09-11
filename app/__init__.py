@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 
+from app.document_processor import extract_pdf_text
 
 def create_app():
     app = Flask(__name__)
