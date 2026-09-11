@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app():
@@ -6,6 +6,6 @@ def create_app():
 
     @app.route("/")
     def home():
-        return "AI Document Agent is running!"
+        return render_template("index.html")
 
     return app
