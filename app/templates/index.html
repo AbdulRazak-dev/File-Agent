@@ -114,16 +114,41 @@
     </div>
 
     <script>
-        function uploadDocument() {
-            const file = document.getElementById("document").files[0];
+        async function uploadDocument() {
 
-            if (!file) {
-                alert("Please select a document first.");
-                return;
-            }
+    const file = document.getElementById("document").files[0];
 
-            alert("Document selected: " + file.name);
+    if (!file) {
+        alert("Please select a document first.");
+        return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("document", file);
+
+    try {
+
+        const response = await fetch("/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("✅ " + result.message);
+        } else {
+            alert("❌ " + result.message);
         }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("❌ Upload failed.");
+    }
+}
     </script>
 
 </body>
