@@ -53,10 +53,27 @@ def create_app():
 
         file.save(file_path)
 
+        if extension == "pdf":
+
+            pages = extract_pdf_text(file_path)
+
+            total_pages = len(pages)
+
+            total_characters = sum(
+                len(page["text"]) for page in pages
+            )
+
+        return jsonify({
+            "success": True,
+            "message": "PDF uploaded and read successfully",
+            "filename": file.filename,
+            "pages": total_pages,
+            "characters": total_characters
+        })
+
         return jsonify({
             "success": True,
             "message": "Document uploaded successfully",
             "filename": file.filename
         })
-
     return app
